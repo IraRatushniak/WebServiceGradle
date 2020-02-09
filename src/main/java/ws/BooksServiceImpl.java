@@ -20,8 +20,6 @@ public class BooksServiceImpl implements BooksService {
     public List<Book> getBook(String name) {
         if (name == null || name.isEmpty()) {
             throw new MissingBookNameException();
-        } else if (booksRepository.getBook(name).isEmpty()) {
-            throw new IllegalArgumentException("Book with name " + name + "is not present in database");
         }
         return booksRepository.getBook(name);
     }
@@ -35,30 +33,27 @@ public class BooksServiceImpl implements BooksService {
     @WebMethod
     @Override
     public boolean saveBook(String name, String author) {
-        if (name == null) {
-            throw new IllegalArgumentException("Invalid book name");
+        if (name == null || name.isEmpty()) {
+            throw new MissingBookNameException();
         }
-        booksRepository.saveBook(name, author);
-        return true;
+        return booksRepository.saveBook(name, author);
     }
 
     @WebMethod
     @Override
     public boolean updateBook(String oldName, String newName, String newAuthor) {
-        if (oldName == null || newName == null) {
-            return false;
+        if (oldName == null || newName == null || oldName.isEmpty() || newAuthor.isEmpty()) {
+            throw new MissingBookNameException();
         }
-        booksRepository.updateBook(oldName, newName, newAuthor);
-        return true;
+        return booksRepository.updateBook(oldName, newName, newAuthor);
     }
 
     @WebMethod
     @Override
     public boolean removeBook(String name) {
-        if (name == null) {
-            return false;
+        if (name == null || name.isEmpty()) {
+            throw new MissingBookNameException();
         }
-        booksRepository.removeBook(name);
-        return true;
+        return booksRepository.removeBook(name);
     }
 }

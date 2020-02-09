@@ -9,9 +9,5 @@
             <handler-name>Handler</handler-name>
             <handler-class>handler.Handler</handler-class>
         </handler>
-        <!--<handler>-->
-            <!--<handler-name>org.superbiz.calculator.wsh.Increment</handler-name>-->
-            <!--<handler-class>org.superbiz.calculator.wsh.Increment</handler-class>-->
-        <!--</handler>-->
     </handler-chain>
 </handler-chains>
