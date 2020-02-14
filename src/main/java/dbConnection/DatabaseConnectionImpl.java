@@ -50,25 +50,24 @@ public class DatabaseConnectionImpl implements DatabaseConnection {
 
     @Override
     public boolean updateBook(String oldName, String newName, String newAuthor) {
-        Book book = manager.createQuery("select b from Book b where b.name=:name", Book.class)
+        List<Book> bookList = manager.createQuery("select b from Book b where b.name=:name", Book.class)
                 .setParameter("name", oldName)
-                .getSingleResult();
-        book.setAuthor(newAuthor);
-        book.setName(newName);
-        manager.persist(book);
-        return true;
+                .getResultList();
+        bookList.forEach(book -> {
+            book.setAuthor(newAuthor);
+            book.setName(newName);
+            manager.persist(book);
+        });
+        return !bookList.isEmpty();
     }
 
     @Override
     public boolean removeBook(String name) {
-        Book book = manager.createQuery("select b from Book b where b.name=:name", Book.class)
+        List<Book> bookList = manager.createQuery("select b from Book b where b.name=:name", Book.class)
                 .setParameter("name", name)
-                .getSingleResult();
-        manager.remove(book);
-        return true;
+                .getResultList();
+        bookList.forEach(book -> manager.remove(book));
+        return !bookList.isEmpty();
     }
 
-    public Boolean isBookInTable(Book book) {
-        return manager.contains(book);
-    }
 }

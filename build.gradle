@@ -4,6 +4,7 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'application'
+    id "com.ewerk.gradle.plugins.jaxb2" version "1.0.10"
 }
 
 group 'WebServiceGradle'
@@ -18,14 +19,8 @@ repositories {
 dependencies {
     //for annotation
     compile('org.projectlombok:lombok:1.16.6')// https://mvnrepository.com/artifact/javax.inject/javax.inject
-    // https://mvnrepository.com/artifact/javax.inject/javax.inject
-    compile group: 'javax.inject', name: 'javax.inject', version: '1'
-
-    //logging
     // https://mvnrepository.com/artifact/javax.servlet/servlet-api
     providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.0'
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.0'
     compile 'log4j:log4j:1.2.17'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     providedCompile group: 'org.projectlombok', name: 'lombok', version: '0.10.1'
@@ -37,6 +32,18 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.1.Final'
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.9.Final'
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    implementation 'com.sun.xml.bind:jaxb-ri:2.4.0-b180830.0438'
+}
+
+//ext {
+//    springVersion = "5.1.7.RELEASE"
+//    lombokVersion = "1.18.6"
+//}
+
+application {
+    mainClassName = 'BooksServicePublisher'
 }
 
 idea {

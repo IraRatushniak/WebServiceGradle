@@ -21,9 +21,11 @@ import javax.persistence.Id;
 @SelectBeforeUpdate
 public class Book {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
+
     private String author;
 
 }
