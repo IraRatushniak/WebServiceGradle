@@ -33,7 +33,7 @@ public class Handler implements SOAPHandler<SOAPMessageContext> {
         } else {
             logger.info("Response");
             logMessageToFile(context);
-//            checkResponseMessage(context);
+            checkResponseMessage(context);
         }
         return true;
     }
@@ -49,42 +49,41 @@ public class Handler implements SOAPHandler<SOAPMessageContext> {
         }
     }
 
-//    private boolean checkResponseMessage(SOAPMessageContext context) {
-//        try {
-//            SOAPMessage soapMessage = context.getMessage();
-//            final SOAPBody body = soapMessage.getSOAPBody();
-//            String response = body.getFirstChild().getLocalName();
-//            final String responseText = body.getTextContent();
-//            //verify not empty
-//            if (response.equals("getBookResponse") && responseText.isEmpty()){
-//                generateSOAPErrMessage(soapMessage, "There is no book with this name");
-//            } else if (response.equals("getAllBookResponse") && responseText.isEmpty()) {
-//                generateSOAPErrMessage(soapMessage, "There is no book in the library");
-//            } else if (response.equals("removeBookResponse") ||
-//                    response.equals("saveBookResponse") ||
-//                    response.equals("updateBookResponse") && responseText.equals("false")) {
-//                generateSOAPErrMessage(soapMessage, "There is no book with this name");
-//            }
-//            return true;
-//        } catch (SOAPException e) {
-//            e.printStackTrace();
-//        }
-//        return true;
-//    }
-//
-//    private void generateSOAPErrMessage(SOAPMessage msg, String reason) {
-//        logger.info("Fault (reason:" + reason + ")");
-//        try {
-//            SOAPBody soapBody = msg.getSOAPPart().getEnvelope().getBody();
-//            SOAPFault soapFault = soapBody.addFault();
-//            System.out.println(1);
-//            soapFault.setFaultString(reason);
-//            System.out.println(2);
-//            throw new SOAPFaultException(soapFault);
-//        } catch (SOAPException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private boolean checkResponseMessage(SOAPMessageContext context) {
+        try {
+            SOAPMessage soapMessage = context.getMessage();
+            final SOAPBody body = soapMessage.getSOAPBody();
+            String response = body.getFirstChild().getLocalName();
+            final String responseText = body.getTextContent();
+            //verify not empty
+            if (response.equals("getBookResponse") && responseText.isEmpty()){
+                generateSOAPErrMessage(soapMessage, "There is no book with this name");
+            } else if (response.equals("getAllBookResponse") && responseText.isEmpty()) {
+                generateSOAPErrMessage(soapMessage, "There is no book in the library");
+            } else if (response.equals("removeBookResponse") ||
+                    response.equals("updateBookResponse") && responseText.equals("false")) {
+                generateSOAPErrMessage(soapMessage, "There is no book with this name");
+            }
+            return true;
+        } catch (SOAPException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private void generateSOAPErrMessage(SOAPMessage msg, String reason) {
+        logger.info("Fault (reason:" + reason + ")");
+        try {
+            SOAPBody soapBody = msg.getSOAPPart().getEnvelope().getBody();
+            SOAPFault soapFault = soapBody.addFault();
+            System.out.println(1);
+            soapFault.setFaultString(reason);
+            System.out.println(2);
+            throw new SOAPFaultException(soapFault);
+        } catch (SOAPException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean handleFault(SOAPMessageContext context) {

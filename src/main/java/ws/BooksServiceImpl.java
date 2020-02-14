@@ -42,7 +42,7 @@ public class BooksServiceImpl implements BooksService {
     @WebMethod
     @Override
     public boolean updateBook(String oldName, String newName, String newAuthor) {
-        if (oldName == null || newName == null || oldName.isEmpty() || newAuthor.isEmpty()) {
+        if (oldName == null || newName == null || oldName.isEmpty() || newName.isEmpty()) {
             throw new MissingBookNameException();
         }
         return booksRepository.updateBook(oldName, newName, newAuthor);
