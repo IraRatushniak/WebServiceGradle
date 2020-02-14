@@ -18,9 +18,7 @@ public class BooksServiceImpl implements BooksService {
     @WebMethod
     @Override
     public List<Book> getBook(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new MissingBookNameException();
-        }
+        checkValueIsNotEmpty(name);
         return booksRepository.getBook(name);
     }
 
@@ -33,27 +31,28 @@ public class BooksServiceImpl implements BooksService {
     @WebMethod
     @Override
     public boolean saveBook(String name, String author) {
-        if (name == null || name.isEmpty()) {
-            throw new MissingBookNameException();
-        }
+        checkValueIsNotEmpty(name);
         return booksRepository.saveBook(name, author);
     }
 
     @WebMethod
     @Override
     public boolean updateBook(String oldName, String newName, String newAuthor) {
-        if (oldName == null || newName == null || oldName.isEmpty() || newName.isEmpty()) {
-            throw new MissingBookNameException();
-        }
+        checkValueIsNotEmpty(oldName);
+        checkValueIsNotEmpty(newName);
         return booksRepository.updateBook(oldName, newName, newAuthor);
     }
 
     @WebMethod
     @Override
     public boolean removeBook(String name) {
-        if (name == null || name.isEmpty()) {
+        checkValueIsNotEmpty(name);
+        return booksRepository.removeBook(name);
+    }
+
+    private void checkValueIsNotEmpty(String value){
+        if (value == null || value.isEmpty()) {
             throw new MissingBookNameException();
         }
-        return booksRepository.removeBook(name);
     }
 }
