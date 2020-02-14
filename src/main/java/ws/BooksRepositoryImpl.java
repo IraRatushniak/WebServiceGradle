@@ -6,7 +6,7 @@ import entity.Book;
 import java.util.List;
 
 public class BooksRepositoryImpl implements BooksRepository {
-    DatabaseConnectionImpl databaseConnection = new DatabaseConnectionImpl();
+    private DatabaseConnectionImpl databaseConnection = new DatabaseConnectionImpl();
 
     @Override
     public List<Book> getBook(String name) {

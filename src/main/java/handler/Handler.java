@@ -20,9 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Handler implements SOAPHandler<SOAPMessageContext> {
-    Logger logger = Logger.getLogger(Handler.class);
-
-    private String SERVICE_CONSUMER = "serviceconsumer";
+    private Logger logger = Logger.getLogger(Handler.class);
 
     @Override
     public boolean handleMessage(SOAPMessageContext context) {
@@ -49,26 +47,23 @@ public class Handler implements SOAPHandler<SOAPMessageContext> {
         }
     }
 
-    private boolean checkResponseMessage(SOAPMessageContext context) {
+    private void checkResponseMessage(SOAPMessageContext context) {
         try {
             SOAPMessage soapMessage = context.getMessage();
             final SOAPBody body = soapMessage.getSOAPBody();
             String response = body.getFirstChild().getLocalName();
             final String responseText = body.getTextContent();
             //verify not empty
-            if (response.equals("getBookResponse") && responseText.isEmpty()) {
-                generateSOAPErrMessage(soapMessage, "There is no book with this name");
+            if ((response.equals("getBookResponse") && responseText.isEmpty()) ||
+                    (response.equals("removeBookResponse") || response.equals("updateBookResponse")
+                            && responseText.equals("false"))) {
+                generateSOAPErrMessage(soapMessage, "There is no book with this name in the database");
             } else if (response.equals("getAllBookResponse") && responseText.isEmpty()) {
-                generateSOAPErrMessage(soapMessage, "There is no book in the library");
-            } else if (response.equals("removeBookResponse") ||
-                    response.equals("updateBookResponse") && responseText.equals("false")) {
-                generateSOAPErrMessage(soapMessage, "There is no book with this name");
+                generateSOAPErrMessage(soapMessage, "There is no book in the database");
             }
-            return true;
         } catch (SOAPException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     private void generateSOAPErrMessage(SOAPMessage msg, String reason) {
