@@ -56,7 +56,7 @@ public class Handler implements SOAPHandler<SOAPMessageContext> {
             String response = body.getFirstChild().getLocalName();
             final String responseText = body.getTextContent();
             //verify not empty
-            if (response.equals("getBookResponse") && responseText.isEmpty()){
+            if (response.equals("getBookResponse") && responseText.isEmpty()) {
                 generateSOAPErrMessage(soapMessage, "There is no book with this name");
             } else if (response.equals("getAllBookResponse") && responseText.isEmpty()) {
                 generateSOAPErrMessage(soapMessage, "There is no book in the library");

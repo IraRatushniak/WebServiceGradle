@@ -50,7 +50,7 @@ public class BooksServiceImpl implements BooksService {
         return booksRepository.removeBook(name);
     }
 
-    private void checkValueIsNotEmpty(String value){
+    private void checkValueIsNotEmpty(String value) {
         if (value == null || value.isEmpty()) {
             throw new MissingBookNameException();
         }
