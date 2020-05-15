@@ -1,9 +1,5 @@
 package entity;
 
-//import lombok.Builder;
-//import lombok.Getter;
-//import lombok.Setter;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,4 +24,15 @@ public class Book {
 
     private String author;
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
