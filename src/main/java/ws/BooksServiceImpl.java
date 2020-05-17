@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import util.MissingBookNameException;
 
 @WebService(endpointInterface = "ws.BooksService")
-//@HandlerChain(file = "handlers.xml")
+@HandlerChain(file = "handlers.xml")
 public class BooksServiceImpl implements BooksService {
     private BooksRepositoryImpl booksRepository = new BooksRepositoryImpl();
 

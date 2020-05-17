@@ -17,16 +17,17 @@ repositories {
 }
 
 ext {
-    springVersion = "5.1.7.RELEASE"
+    springVersion = "5.2.6.RELEASE"
     lombokVersion = "1.18.12"
 }
 
 dependencies {
-//    compile group: 'org.springframework', name: 'spring-core', version: "${springVersion}"
-//    compile group: 'org.springframework', name: 'spring-beans', version: "${springVersion}"
-//    compile group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
-//    compile group: 'org.springframework', name: 'spring-test', version: "${springVersion}"
-//    compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    compile group: 'org.springframework', name: 'spring-core', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-beans', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-test', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
     compile group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
     //for annotation
 //    compile('org.projectlombok:lombok:1.18.12')// https://mvnrepository.com/artifact/javax.inject/javax.inject
@@ -38,7 +39,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
     compile group: 'org.springframework', name: 'spring-context', version: '5.1.7.RELEASE'
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
+//    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.1.Final'
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
@@ -56,9 +57,11 @@ dependencies {
 //    compile 'com.sun.xml.ws:rt:2.2.10'
     compile 'com.sun.xml.ws:jaxws-rt:2.2.10'
     compile 'com.sun.xml.ws:rt:2.3.1'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
 }
 
-application {
+    application {
     mainClassName = 'BooksServicePublisher'
 }
 

@@ -16,6 +16,7 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 import javax.xml.ws.soap.SOAPFaultException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class Handler implements SOAPHandler<SOAPMessageContext> {
             logMessageToFile(context);
         } else {
             logger.info("Response");
-            logMessageToFile(context);
+//            logMessageToFile(context);
             checkResponseMessage(context);
         }
         return true;
@@ -71,9 +72,7 @@ public class Handler implements SOAPHandler<SOAPMessageContext> {
         try {
             SOAPBody soapBody = msg.getSOAPPart().getEnvelope().getBody();
             SOAPFault soapFault = soapBody.addFault();
-            System.out.println(1);
             soapFault.setFaultString(reason);
-            System.out.println(2);
             throw new SOAPFaultException(soapFault);
         } catch (SOAPException e) {
             e.printStackTrace();
@@ -82,16 +81,15 @@ public class Handler implements SOAPHandler<SOAPMessageContext> {
 
     @Override
     public boolean handleFault(SOAPMessageContext context) {
-        return false;
+        return true;
     }
 
     @Override
     public void close(MessageContext context) {
-
     }
 
     @Override
     public Set<QName> getHeaders() {
-        return null;
+        return Collections.emptySet();
     }
 }

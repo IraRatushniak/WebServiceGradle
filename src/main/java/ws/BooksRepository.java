@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface BooksRepository {
 
-    public List<Book> getBook(String name);
+    List<Book> getBook(String name);
 
-    public List<Book> getAllBooks();
+    List<Book> getAllBooks();
 
-    public boolean updateBook(String oldName, String newName, String newAuthor);
+    boolean updateBook(String oldName, String newName, String newAuthor);
 
-    public boolean saveBook(String name, String author);
+    boolean saveBook(String name, String author);
 
-    public boolean removeBook(String name);
+    boolean removeBook(String name);
 }
